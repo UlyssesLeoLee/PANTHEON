@@ -1,0 +1,4 @@
+import {test,expect} from "@playwright/test";
+test("ST-UI-001: 预览数据库结构",async({page})=>{await page.goto("/");await expect(page.getByText("PANTHEON",{exact:true}).first()).toBeVisible();await expect(page.getByText("数据库总览")).toBeVisible();await expect(page.getByText("预览模式 · 未连接")).toBeVisible();});
+test("ST-UI-002: SQL 编辑器禁止未连接执行",async({page})=>{await page.goto("/");await page.getByRole("button",{name:"SQL 工作台"}).click();await page.getByRole("button",{name:"运行查询"}).click();await expect(page.getByText(/请先在连接设置中连接/)).toBeVisible();});
+test("ST-UI-003: 导出数据库字典",async({page})=>{await page.goto("/");await page.getByRole("button",{name:"表定义书"}).click();const download=page.waitForEvent("download");await page.getByRole("button",{name:"导出 Markdown"}).click();expect((await download).suggestedFilename()).toBe("PANTHEON_schema.md");});

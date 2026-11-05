@@ -1,0 +1,18 @@
+[package]
+name = "pantheon-api"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+
+[dependencies]
+axum = { version = "0.8", features = ["json"] }
+tokio = { version = "1", features = ["full"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+rusqlite = { version = "0.37", features = ["bundled", "hooks"] }
+tower-http = { version = "0.6", features = ["cors", "trace"] }
+tracing-subscriber = "0.3"
+thiserror = "2"
+
+[dev-dependencies]
+tempfile = "3"

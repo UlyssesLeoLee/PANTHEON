@@ -1,0 +1,10 @@
+node_modules/
+.next/
+out/
+target/
+data/*.db
+.env
+.env.local
+*.log
+playwright-report/
+test-results/
