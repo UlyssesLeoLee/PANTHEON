@@ -1,0 +1,15 @@
+{
+  "min_coverage_exclusive": 90,
+  "design_first": true,
+  "require_design_commit_first": true,
+  "require_project_coverage": true,
+  "require_branch_coverage": false,
+  "auto_detect_coverage": true,
+  "coverage_report": ".quality/coverage/lcov.info",
+  "coverage_commands": [
+    ["cargo", "llvm-cov", "--manifest-path", "backend/Cargo.toml", "--lcov", "--output-path", ".quality/coverage/lcov.info"]
+  ],
+  "mappings": {},
+  "excluded_sources": [],
+  "test_timeout_seconds": 1800
+}

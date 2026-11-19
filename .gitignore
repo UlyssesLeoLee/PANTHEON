@@ -8,3 +8,6 @@ data/*.db
 *.log
 playwright-report/
 test-results/
+
+# Quality hook coverage output
+.quality/coverage/

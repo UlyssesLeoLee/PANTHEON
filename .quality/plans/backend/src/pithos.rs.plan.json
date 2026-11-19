@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "source": "backend/src/pithos.rs",
+  "baseline_source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "prepared_branch": "dev",
+  "technical_design": ".quality/docs/backend/src/pithos.rs.md",
+  "test_design": ".quality/test-design/backend/src/pithos.rs.test.md",
+  "prepared_technical_design_sha256": "2a78bc99d88d07decfbd3cde6150e39293fbb4c2941e7e4e5c1544e05cf5b0e7",
+  "prepared_test_design_sha256": "65cdba16a7eb6f48a25fb2c9a265e84fd658f81feed1b1b65ca3a81cf70ff682",
+  "prepared_related_design_sha256": {}
+}
