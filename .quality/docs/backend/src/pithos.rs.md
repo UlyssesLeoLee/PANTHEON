@@ -2,7 +2,7 @@
 
 Source: `backend/src/pithos.rs`
 
-Source-SHA256: `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`
+Source-SHA256: `c4e761ad8c3a6b565bd13a11521c654340e2ab3435e993c2215324dd7e42a528`
 
 ## Responsibility
 

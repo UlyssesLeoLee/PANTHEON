@@ -2,7 +2,7 @@
 
 Source: `backend/src/lib.rs`
 
-Source-SHA256: `21e640ca74dbace7d01e113c46aba2915ca752e4a71bda15918aa62fb9b2161a`
+Source-SHA256: `389e18c9715c8a6dcec95cc2b33d435701a31b4b1e1b6abe3ad79aad5647a0c1`
 
 ## Test Strategy
 
@@ -22,12 +22,13 @@ Three levels. (1) Inline unit tests in `backend/src/lib.rs` for private helpers 
 | TC-008 | `POST /api/query` against SQLite with `SELECT`, `DELETE`, a malformed JSON body and a missing content type | 200 with rows, 403 with the fixed message, 400-range status, 415 | `backend/tests/api_http.rs::sqlite_query_endpoint_behaviour` |
 | TC-009 | `/api/schema` against the golden PITHOS fixtures | 200 with tables `document/app`, `kv/app`, `kv/demo` and the key and value columns | `backend/tests/api_http.rs::pithos_schema_over_http` |
 | TC-010 | `/api/query` against PITHOS with a scan, a lookup, an unsupported statement and an unknown table | Rows with exact JSON field names, then 400 with the grammar hint, then 400 listing the available tables | `backend/tests/api_http.rs::pithos_query_over_http` |
-| TC-011 | Preflight `OPTIONS /api/query` from the configured origin and from a different origin | Allow-origin header echoes the configured origin only; none for the other origin | `backend/tests/api_http.rs::cors_allows_only_configured_origin` |
+| TC-011 | Preflight `OPTIONS /api/query` from the configured origin and from a different origin | The allow-origin header is always the configured origin and never echoes the foreign origin, so a browser page at another origin does not match and is refused | `backend/tests/api_http.rs::cors_allows_only_configured_origin` |
 | TC-012 | `serve` on `127.0.0.1:0`, raw TCP `GET /health`, then the shutdown signal fires | Response is `200` with the JSON body and `serve` returns `Ok` after shutdown | `backend/tests/api_http.rs::serve_answers_over_tcp_and_shuts_down` |
 | TC-013 | `run_with_shutdown` with valid settings, bind `127.0.0.1:0` and an already-completed shutdown future | Returns `Ok` | `backend/tests/api_http.rs::run_with_shutdown_starts_and_stops` |
 | TC-014 | `run_with_shutdown` with invalid configuration, and with a bind address that is already in use | `Err` naming the variable, and `Err` containing `cannot bind` | `backend/tests/api_http.rs::run_with_shutdown_reports_errors` |
 | TC-015 | `blocking` given a closure that panics, and one that returns an `ApiError` | `ApiError::Database` containing `worker task failed`, and the original error passes through | `backend/src/lib.rs::tests::blocking_maps_worker_failures` |
 | TC-016 | Convert each `ApiError` variant to a response | Status 401, 403, 400, 400, 400 and body `{"error": "<message>"}` | `backend/src/lib.rs::tests::api_error_status_and_body` |
+| TC-017 | `/api/schema` against a PITHOS directory whose `kv.wal` holds a truncated frame | 400 and an error message that names `kv.wal`; the corrupt data is never skipped | `backend/tests/api_http.rs::pithos_corruption_is_reported_over_http` |
 
 ## Boundary & Failure Cases
 

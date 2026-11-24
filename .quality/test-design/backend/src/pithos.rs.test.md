@@ -2,7 +2,7 @@
 
 Source: `backend/src/pithos.rs`
 
-Source-SHA256: `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`
+Source-SHA256: `c4e761ad8c3a6b565bd13a11521c654340e2ab3435e993c2215324dd7e42a528`
 
 ## Test Strategy
 
@@ -35,6 +35,7 @@ Unit tests live inline in `backend/src/pithos.rs` (`mod tests`) because they exe
 | TC-021 | Run `inspect` and several queries, comparing file bytes, modification time and directory listing before and after | Nothing changes and no file is created | `backend/src/pithos.rs::tests::read_only_has_no_side_effects` |
 | TC-022 | Query, append a frame with the test encoder, query again | Second query sees the new record because each request re-reads the file | `backend/src/pithos.rs::tests::each_request_rereads_the_log` |
 | TC-023 | Root path that does not exist | `Database` error and the path is not created | `backend/src/pithos.rs::tests::missing_root_errors_without_creating_anything` |
+| TC-024 | Root label for a relative path ending in `data`, and for the filesystem root which has no file name | Label is `data`, and a non-empty path text for the root | `backend/src/pithos.rs::tests::root_label_falls_back_to_the_path` |
 
 ## Boundary & Failure Cases
 

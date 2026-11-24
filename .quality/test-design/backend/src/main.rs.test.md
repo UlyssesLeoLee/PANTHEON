@@ -2,11 +2,11 @@
 
 Source: `backend/src/main.rs`
 
-Source-SHA256: `0123383cc99a3aad38c55220b5d363b28fc27ef32ab890afe8bfa34c4551602c`
+Source-SHA256: `c9c2c5fec140c74b763401febeac9502ca87fec0850604c667c8f78e9112e4a7`
 
 ## Test Strategy
 
-`main.rs` is exercised only as a compiled process. `backend/tests/cli_main.rs` spawns the real `pantheon-api` binary through `env!("CARGO_BIN_EXE_pantheon-api")` with `env_clear()` plus the variables each case needs, so the host environment never leaks in. Failure cases run to completion and assert exit status and streams. Startup cases read the first standard-output line to learn the bound address (the tests bind port `0`), send a raw HTTP request over TCP, and then kill the child. Fixtures are a temp-directory SQLite file and the golden PITHOS directory in `backend/tests/fixtures/pithos`. Under `cargo llvm-cov` the instrumented child processes write their profile data on normal exit, which is how the failure-path runs attribute coverage to `main.rs`. Coverage must be strictly above 90 percent for this file.
+`main.rs` is exercised only as a compiled process. `backend/tests/cli_main.rs` spawns the real `pantheon-api` binary through `env!("CARGO_BIN_EXE_pantheon-api")` with `env_clear()` plus the variables each case needs, so the host environment never leaks in. Failure cases run to completion and assert exit status and streams. Startup cases read the first standard-output line to learn the bound address (the tests bind port `0`), send a raw HTTP request over TCP, and then kill the child. Fixtures are a temp-directory SQLite file and the golden PITHOS directory in `backend/tests/fixtures/pithos`. The helper forwards `LLVM_PROFILE_FILE` into the cleared environment when it is set. Under `cargo llvm-cov` the instrumented child processes write their profile data when `main` returns, which is how the failure-path runs attribute coverage to `main.rs`. Coverage must be strictly above 90 percent for this file.
 
 ## Test Cases
 

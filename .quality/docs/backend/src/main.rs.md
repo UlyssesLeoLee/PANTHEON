@@ -2,7 +2,7 @@
 
 Source: `backend/src/main.rs`
 
-Source-SHA256: `0123383cc99a3aad38c55220b5d363b28fc27ef32ab890afe8bfa34c4551602c`
+Source-SHA256: `c9c2c5fec140c74b763401febeac9502ca87fec0850604c667c8f78e9112e4a7`
 
 ## Responsibility
 
@@ -12,7 +12,7 @@ Source-SHA256: `0123383cc99a3aad38c55220b5d363b28fc27ef32ab890afe8bfa34c4551602c
 
 - `pantheon_api::run` from `backend/src/lib.rs`.
 - `tokio` for the `#[tokio::main]` runtime and `tracing_subscriber` for log output.
-- `std::process::exit` for the status code.
+- `std::process::ExitCode` for the status code. `main` returns it instead of calling `std::process::exit`, so the process ends through the normal runtime shutdown path (which also flushes coverage profile data of instrumented builds).
 - Runtime environment: `PANTHEON_DB_PATH`, `PANTHEON_API_TOKEN`, `PANTHEON_UI_ORIGIN`, `PANTHEON_API_BIND`, consumed through `run`.
 
 ## Public Contract
